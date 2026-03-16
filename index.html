@@ -3,781 +3,575 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>TeknoShop — WhatsApp AI Agent Rehberi</title>
-<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+<title>Ebrar & Harun</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400&family=Lato:wght@300;400&display=swap" rel="stylesheet">
 <style>
-  :root {
-    --green: #25D366;
-    --green-dark: #128C7E;
-    --black: #0a0a0a;
-    --off-white: #f5f3ee;
-    --warm-gray: #c8c4bc;
-    --accent: #ff4d00;
-  }
-
   * { margin: 0; padding: 0; box-sizing: border-box; }
-
   body {
-    background: var(--black);
-    color: var(--off-white);
-    font-family: 'DM Sans', sans-serif;
+    background: #0d0a08;
+    color: #e8ddd0;
+    font-family: 'Lato', sans-serif;
+    font-weight: 300;
+    min-height: 100vh;
     overflow-x: hidden;
   }
-
   body::before {
     content: '';
     position: fixed;
     inset: 0;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
     pointer-events: none;
     z-index: 1000;
-    opacity: 0.4;
+    opacity: 0.6;
   }
-
-  header {
-    padding: 32px 40px;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    border-bottom: 1px solid rgba(255,255,255,0.06);
-  }
-
-  .logo-dot {
-    width: 10px; height: 10px;
-    background: var(--green);
-    border-radius: 50%;
-    animation: pulse 2s infinite;
-  }
-
-  @keyframes pulse {
-    0%, 100% { opacity: 1; transform: scale(1); }
-    50% { opacity: 0.5; transform: scale(1.4); }
-  }
-
-  .logo-text {
-    font-family: 'Syne', sans-serif;
-    font-weight: 800;
-    font-size: 18px;
-    letter-spacing: -0.5px;
-  }
-
-  .hero {
-    padding: 60px 40px 80px;
-    max-width: 1100px;
-    margin: 0 auto;
-    display: grid;
-    grid-template-columns: 1.2fr 0.8fr;
-    gap: 60px;
-    align-items: start;
-  }
-
-  .hero-tag {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    background: rgba(37, 211, 102, 0.1);
-    border: 1px solid rgba(37, 211, 102, 0.25);
-    color: var(--green);
-    font-size: 12px;
-    font-weight: 500;
-    letter-spacing: 1.5px;
-    text-transform: uppercase;
-    padding: 6px 14px;
-    border-radius: 100px;
-    margin-bottom: 28px;
-  }
-
-  h1 {
-    font-family: 'Syne', sans-serif;
-    font-weight: 800;
-    font-size: clamp(38px, 5vw, 62px);
-    line-height: 1.05;
-    letter-spacing: -2px;
-    margin-bottom: 24px;
-  }
-
-  h1 span {
-    color: var(--green);
-    position: relative;
-  }
-
-  h1 span::after {
+  body::after {
     content: '';
-    position: absolute;
-    bottom: 4px;
-    left: 0;
-    right: 0;
-    height: 3px;
-    background: var(--accent);
-    transform: skewX(-8deg);
+    position: fixed;
+    inset: 0;
+    background: radial-gradient(ellipse at center, transparent 40%, rgba(0,0,0,0.6) 100%);
+    pointer-events: none;
+    z-index: 999;
   }
 
-  .hero-sub {
-    font-size: 17px;
-    line-height: 1.65;
-    color: var(--warm-gray);
-    font-weight: 300;
-    max-width: 440px;
-  }
-
-  .stats {
-    display: flex;
-    gap: 32px;
-    margin-top: 48px;
-    padding-top: 40px;
-    border-top: 1px solid rgba(255,255,255,0.08);
-  }
-
-  .stat-item strong {
-    display: block;
-    font-family: 'Syne', sans-serif;
-    font-size: 28px;
-    font-weight: 800;
-    color: var(--green);
-  }
-
-  .stat-item span {
-    font-size: 12px;
-    color: var(--warm-gray);
-    letter-spacing: 0.5px;
-  }
-
-  .phone-wrap {
-    position: relative;
-    display: flex;
-    justify-content: center;
-    padding-top: 20px;
-  }
-
-  .phone-wrap::before {
-    content: '';
-    position: absolute;
-    width: 280px; height: 280px;
-    background: radial-gradient(circle, rgba(37,211,102,0.2) 0%, transparent 70%);
-    top: 50%; left: 50%;
-    transform: translate(-50%, -50%);
-    filter: blur(40px);
-  }
-
-  .phone {
-    width: 260px;
-    background: #1a1a1a;
-    border-radius: 36px;
-    border: 1px solid rgba(255,255,255,0.1);
-    overflow: hidden;
-    box-shadow: 0 40px 80px rgba(0,0,0,0.6);
-  }
-
-  .phone-bar {
-    background: var(--green-dark);
-    padding: 14px 16px;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-  }
-
-  .phone-avatar {
-    width: 36px; height: 36px;
-    background: var(--green);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 16px;
-  }
-
-  .phone-name { font-size: 13px; font-weight: 500; color: white; }
-  .phone-status { font-size: 11px; color: rgba(255,255,255,0.6); }
-
-  .chat-area {
-    background: #0b1f15;
-    padding: 16px 12px;
-    min-height: 340px;
+  /* LOCK SCREEN */
+  #lockScreen {
+    position: fixed;
+    inset: 0;
+    background: #0d0a08;
+    z-index: 9000;
     display: flex;
     flex-direction: column;
-    gap: 8px;
+    align-items: center;
+    justify-content: center;
+    transition: opacity 0.8s ease, transform 0.8s ease;
   }
-
-  .bubble {
-    max-width: 80%;
-    padding: 9px 13px;
-    border-radius: 10px;
-    font-size: 12.5px;
-    line-height: 1.5;
-    animation: slideIn 0.4s ease both;
-  }
-
-  @keyframes slideIn {
-    from { opacity: 0; transform: translateY(8px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-
-  .bubble.them {
-    background: #1f2e24;
-    color: #e0e0e0;
-    align-self: flex-start;
-    border-bottom-left-radius: 2px;
-  }
-
-  .bubble.me {
-    background: #005c4b;
-    color: #e9ffed;
-    align-self: flex-end;
-    border-bottom-right-radius: 2px;
-  }
-
-  .bubble:nth-child(1) { animation-delay: 0.2s; }
-  .bubble:nth-child(2) { animation-delay: 0.6s; }
-  .bubble:nth-child(3) { animation-delay: 1.0s; }
-  .bubble:nth-child(4) { animation-delay: 1.4s; }
-  .bubble:nth-child(5) { animation-delay: 1.8s; }
-
-  .typing {
-    align-self: flex-start;
-    background: #1f2e24;
-    border-radius: 10px;
-    padding: 10px 14px;
-    display: flex;
-    gap: 4px;
-    animation: slideIn 0.4s ease 0.35s both;
-  }
-
-  .typing span {
-    width: 6px; height: 6px;
-    background: var(--green);
-    border-radius: 50%;
-    animation: bounce 1.2s infinite;
-  }
-  .typing span:nth-child(2) { animation-delay: 0.2s; }
-  .typing span:nth-child(3) { animation-delay: 0.4s; }
-
-  @keyframes bounce {
-    0%, 100% { transform: translateY(0); opacity: 0.4; }
-    50% { transform: translateY(-4px); opacity: 1; }
-  }
-
-  .workflow-section {
-    padding: 80px 40px;
-    max-width: 1100px;
-    margin: 0 auto;
-  }
-
-  .section-label {
-    font-size: 11px;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    color: var(--warm-gray);
-    margin-bottom: 16px;
-  }
-
-  .section-title {
-    font-family: 'Syne', sans-serif;
-    font-size: clamp(28px, 3vw, 40px);
-    font-weight: 800;
-    letter-spacing: -1.5px;
-    margin-bottom: 60px;
-  }
-
-  /* WORKFLOW CARDS */
-  .wf-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 16px;
-  }
-
-  .wf-card {
-    background: #0f0f0f;
-    border: 1px solid rgba(255,255,255,0.07);
-    border-radius: 18px;
-    padding: 28px 24px;
-    position: relative;
-    transition: border-color 0.2s, transform 0.2s;
-  }
-
-  .wf-card:hover {
-    border-color: rgba(37,211,102,0.3);
-    transform: translateY(-4px);
-  }
-
-  .wf-card.highlight {
-    border-color: rgba(37,211,102,0.2);
-    background: linear-gradient(135deg, #0f1f16, #0a0a0a);
-  }
-
-  .wf-num {
-    font-family: 'Syne', sans-serif;
-    font-size: 11px;
-    font-weight: 700;
-    letter-spacing: 2px;
-    color: var(--accent);
-    text-transform: uppercase;
-    margin-bottom: 20px;
-    display: block;
-  }
-
-  .wf-icon {
-    font-size: 32px;
-    margin-bottom: 16px;
-    display: block;
-  }
-
-  .wf-card h3 {
-    font-family: 'Syne', sans-serif;
-    font-size: 17px;
-    font-weight: 800;
-    letter-spacing: -0.5px;
-    margin-bottom: 10px;
-    line-height: 1.2;
-  }
-
-  .wf-card p {
-    font-size: 13px;
-    color: var(--warm-gray);
-    line-height: 1.65;
-    font-weight: 300;
-  }
-
-  .wf-tag {
-    display: inline-block;
-    margin-top: 14px;
-    font-size: 10px;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    color: var(--green);
-    background: rgba(37,211,102,0.08);
-    border: 1px solid rgba(37,211,102,0.18);
-    padding: 4px 10px;
-    border-radius: 100px;
-  }
-
-  .wf-arrow {
-    position: absolute;
-    top: 50%;
-    right: -12px;
-    transform: translateY(-50%);
-    color: rgba(37,211,102,0.35);
-    font-size: 18px;
-    z-index: 2;
-  }
-
-  @media (max-width: 900px) {
-    .wf-grid { grid-template-columns: repeat(2, 1fr); }
-    .wf-arrow { display: none; }
-  }
-
-  @media (max-width: 500px) {
-    .wf-grid { grid-template-columns: 1fr; }
-  }
-
-  .inside {
-    max-width: 1100px;
-    margin: 0 auto;
-    padding: 0 40px 80px;
-  }
-
-  .inside-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 20px;
-    margin-top: 48px;
-  }
-
-  .inside-card {
-    background: #0f0f0f;
-    border: 1px solid rgba(255,255,255,0.07);
-    border-radius: 16px;
-    padding: 28px;
-    transition: border-color 0.2s, transform 0.2s;
-  }
-
-  .inside-card:hover {
-    border-color: rgba(37,211,102,0.25);
-    transform: translateY(-3px);
-  }
-
-  .inside-card .icon { font-size: 28px; margin-bottom: 16px; display: block; }
-
-  .inside-card h3 {
-    font-family: 'Syne', sans-serif;
-    font-size: 16px;
-    font-weight: 700;
-    margin-bottom: 8px;
-    letter-spacing: -0.3px;
-  }
-
-  .inside-card p {
-    font-size: 13px;
-    color: var(--warm-gray);
-    line-height: 1.6;
-    font-weight: 300;
-  }
-
-  .email-section {
-    margin: 20px auto 100px;
-    max-width: 660px;
-    padding: 0 40px;
-    text-align: center;
-  }
-
-  .email-box {
-    background: linear-gradient(135deg, #0f1f16 0%, #0a1a0e 100%);
-    border: 1px solid rgba(37,211,102,0.2);
-    border-radius: 24px;
-    padding: 52px 48px;
-    position: relative;
-    overflow: hidden;
-  }
-
-  .email-box::before {
-    content: '';
-    position: absolute;
-    top: -60px; left: 50%;
-    transform: translateX(-50%);
-    width: 200px; height: 200px;
-    background: radial-gradient(circle, rgba(37,211,102,0.15), transparent 70%);
+  #lockScreen.hide {
+    opacity: 0;
+    transform: translateY(-30px);
     pointer-events: none;
   }
-
-  .email-box h2 {
-    font-family: 'Syne', sans-serif;
-    font-size: 30px;
-    font-weight: 800;
-    letter-spacing: -1px;
-    margin-bottom: 10px;
+  .lock-ornament {
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem;
+    color: #3a2e1e;
+    margin-bottom: 1rem;
+    letter-spacing: 0.3em;
   }
-
-  .email-box p {
-    color: var(--warm-gray);
-    font-size: 15px;
-    font-weight: 300;
-    margin-bottom: 36px;
-    line-height: 1.6;
+  .lock-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem;
+    color: #7a6a50;
+    letter-spacing: 0.2em;
+    margin-bottom: 0.4rem;
   }
-
-  /* ConvertKit form stilini buradan kontrol et */
-  #ck-form-area form,
-  #email-form {
-    display: flex;
-    gap: 10px;
-    flex-wrap: wrap;
-    justify-content: center;
+  .lock-subtitle {
+    font-size: 0.65rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: #3a3020;
+    margin-bottom: 3rem;
   }
-
-  #ck-form-area input[type="email"],
-  #ck-form-area input[type="text"],
-  #email-form input {
-    flex: 1;
-    min-width: 200px;
-    background: rgba(255,255,255,0.05);
-    border: 1px solid rgba(255,255,255,0.12);
-    border-radius: 12px;
-    padding: 16px 20px;
-    color: var(--off-white);
-    font-family: 'DM Sans', sans-serif;
-    font-size: 15px;
-    outline: none;
-    transition: border-color 0.2s;
+  .lock-input-wrap {
+    position: relative;
+    width: 220px;
+    margin-bottom: 1rem;
   }
-
-  #ck-form-area input:focus,
-  #email-form input:focus { border-color: var(--green); }
-
-  #ck-form-area input::placeholder,
-  #email-form input::placeholder { color: var(--warm-gray); }
-
-  #ck-form-area button,
-  #email-form button {
-    background: var(--green);
-    color: #000;
+  .lock-input {
+    width: 100%;
+    background: transparent;
     border: none;
-    border-radius: 12px;
-    padding: 16px 28px;
-    font-family: 'Syne', sans-serif;
-    font-size: 15px;
-    font-weight: 700;
-    cursor: pointer;
-    transition: background 0.2s, transform 0.15s;
-    white-space: nowrap;
-  }
-
-  #ck-form-area button:hover,
-  #email-form button:hover {
-    background: #1fba56;
-    transform: translateY(-1px);
-  }
-
-  .email-note {
-    margin-top: 16px;
-    font-size: 12px;
-    color: rgba(255,255,255,0.28);
-  }
-
-  #success-msg {
-    color: var(--green);
-    margin-top: 20px;
-    font-weight: 500;
-    font-size: 16px;
-  }
-
-  /* HERO EMAIL BOX */
-  .hero-email-box {
-    margin-top: 36px;
-    background: linear-gradient(135deg, #0f1f16 0%, #0a1a0e 100%);
-    border: 1px solid rgba(37,211,102,0.2);
-    border-radius: 18px;
-    padding: 28px 28px 20px;
-    max-width: 560px;
-  }
-
-  .hero-email-label {
-    font-size: 13px;
-    color: var(--green);
-    margin-bottom: 14px !important;
-    font-weight: 500;
-    letter-spacing: 0.3px;
-  }
-
-  .hero-email-box #email-form {
-    display: flex;
-    gap: 8px;
-    flex-wrap: wrap;
-  }
-
-  .hero-email-box input {
-    flex: 1;
-    min-width: 160px;
-    background: rgba(255,255,255,0.05);
-    border: 1px solid rgba(255,255,255,0.12);
-    border-radius: 10px;
-    padding: 13px 16px;
-    color: var(--off-white);
-    font-family: 'DM Sans', sans-serif;
-    font-size: 14px;
-    outline: none;
-    transition: border-color 0.2s;
-  }
-
-  .hero-email-box input:focus { border-color: var(--green); }
-  .hero-email-box input::placeholder { color: var(--warm-gray); }
-
-  .hero-email-box button {
-    background: var(--green);
-    color: #000;
-    border: none;
-    border-radius: 10px;
-    padding: 13px 22px;
-    font-family: 'Syne', sans-serif;
-    font-size: 14px;
-    font-weight: 700;
-    cursor: pointer;
-    transition: background 0.2s, transform 0.15s;
-    white-space: nowrap;
-  }
-
-  .hero-email-box button:hover {
-    background: #1fba56;
-    transform: translateY(-1px);
-  }
-
-  footer {
-    border-top: 1px solid rgba(255,255,255,0.06);
-    padding: 32px 40px;
+    border-bottom: 1px solid #2a2318;
+    color: #c8b890;
+    font-family: 'Playfair Display', serif;
+    font-size: 1.4rem;
     text-align: center;
-    font-size: 13px;
-    color: rgba(255,255,255,0.25);
+    letter-spacing: 0.3em;
+    padding: 0.6rem 0;
+    outline: none;
+    transition: border-color 0.3s;
+  }
+  .lock-input:focus { border-bottom-color: #b8975a; }
+  .lock-input.error { border-bottom-color: #8a3a2a; animation: shake 0.4s ease; }
+  .lock-error {
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    color: #7a3a2a;
+    text-align: center;
+    height: 1rem;
+    margin-bottom: 2rem;
+    transition: opacity 0.3s;
+  }
+  .lock-btn {
+    background: transparent;
+    border: 1px solid #2a2318;
+    color: #5a4e38;
+    font-family: 'Lato', sans-serif;
+    font-size: 0.65rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    padding: 0.7rem 2.5rem;
+    cursor: pointer;
+    transition: border-color 0.3s, color 0.3s;
+  }
+  .lock-btn:hover { border-color: #b8975a; color: #b8975a; }
+  .lock-hint {
+    font-size: 0.6rem;
+    color: #2a2218;
+    letter-spacing: 0.15em;
+    margin-top: 2.5rem;
+  }
+  @keyframes shake {
+    0%,100%{transform:translateX(0)}
+    25%{transform:translateX(-8px)}
+    75%{transform:translateX(8px)}
   }
 
-  footer a { color: var(--green); text-decoration: none; }
+  /* MAIN SITE */
+  #mainSite { display: none; }
+  #mainSite.visible { display: block; }
 
-  @media (max-width: 768px) {
-    .hero { grid-template-columns: 1fr; gap: 48px; padding: 60px 24px 48px; }
-    .phone-wrap { display: none; }
-    .flow { grid-template-columns: repeat(3, 1fr); gap: 24px; }
-    .flow::before { display: none; }
-    .inside-grid { grid-template-columns: 1fr; }
-    .email-box { padding: 36px 24px; }
-    header, .workflow-section, .inside { padding-left: 24px; padding-right: 24px; }
-    .email-section { padding: 0 24px; }
+  section {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 4rem 2rem;
+    position: relative;
+  }
+  #hero {
+    background: linear-gradient(160deg, #1a1008 0%, #0d0a08 50%, #0a0d0d 100%);
+    text-align: center;
+  }
+  .hero-date {
+    font-family: 'Lato', sans-serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: #b8975a;
+    margin-bottom: 1.5rem;
+    opacity: 0;
+    animation: fadeUp 1s ease 0.3s forwards;
+  }
+  .hero-names {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(3rem, 8vw, 6rem);
+    font-weight: 400;
+    line-height: 1.1;
+    color: #f0e6d3;
+    opacity: 0;
+    animation: fadeUp 1s ease 0.6s forwards;
+  }
+  .hero-names span { color: #b8975a; font-style: italic; }
+  .hero-ampersand { display: block; font-size: 0.6em; color: #7a6040; margin: 0.2em 0; }
+  .hero-sub {
+    font-size: 0.85rem;
+    letter-spacing: 0.2em;
+    color: #7a7060;
+    margin-top: 2rem;
+    opacity: 0;
+    animation: fadeUp 1s ease 0.9s forwards;
+  }
+  #counter {
+    background: #0a0807;
+    border-top: 1px solid #2a2318;
+    border-bottom: 1px solid #2a2318;
+  }
+  .counter-label {
+    font-size: 0.65rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: #6a5e4a;
+    margin-bottom: 2rem;
+    text-align: center;
+  }
+  .counter-grid {
+    display: flex;
+    gap: 2rem;
+    align-items: flex-end;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  .counter-unit { text-align: center; }
+  .counter-number {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.5rem, 6vw, 4.5rem);
+    font-weight: 400;
+    color: #c8a870;
+    line-height: 1;
+    display: block;
+  }
+  .counter-unit-label {
+    font-size: 0.6rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: #5a4e3a;
+    margin-top: 0.5rem;
+  }
+  .counter-sep { font-family: 'Playfair Display', serif; font-size: 3rem; color: #3a2e1e; line-height: 1; padding-bottom: 0.5rem; }
+  #photos { background: #0d0b09; min-height: auto; padding: 5rem 2rem; }
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.5rem, 4vw, 2.5rem);
+    font-weight: 400;
+    color: #d4c4a0;
+    text-align: center;
+    margin-bottom: 0.5rem;
+  }
+  .section-divider { width: 40px; height: 1px; background: #b8975a; margin: 1rem auto 3rem; }
+  .photo-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 12px;
+    width: 100%;
+    max-width: 900px;
+  }
+  .photo-slot {
+    aspect-ratio: 4/5;
+    border: 1px dashed #3a3020;
+    border-radius: 2px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: border-color 0.3s, background 0.3s;
+    overflow: hidden;
+    position: relative;
+    background: #111009;
+  }
+  .photo-slot:hover { border-color: #7a6040; background: #16120a; }
+  .photo-slot input[type="file"] { position: absolute; inset: 0; opacity: 0; cursor: pointer; }
+  .photo-slot img { width: 100%; height: 100%; object-fit: cover; position: absolute; inset: 0; }
+  .photo-slot .placeholder-text { font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase; color: #4a4030; margin-top: 0.5rem; }
+  .photo-caption-field {
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid #2a2318;
+    color: #8a7860;
+    font-family: 'Lato', sans-serif;
+    font-size: 0.75rem;
+    text-align: center;
+    width: 100%;
+    padding: 0.4rem 0;
+    outline: none;
+    transition: border-color 0.3s;
+  }
+  .photo-caption-field:focus { border-bottom-color: #b8975a; color: #c4aa80; }
+  .photo-caption-field::placeholder { color: #3a3020; }
+  #letter { background: linear-gradient(180deg, #0a0807 0%, #0d0b09 100%); padding: 5rem 2rem; min-height: auto; }
+  .letter-container { max-width: 620px; width: 100%; }
+  .letter-textarea {
+    width: 100%;
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid #2a2318;
+    color: #c8b890;
+    font-family: 'Playfair Display', serif;
+    font-size: 1.05rem;
+    line-height: 2;
+    padding: 0.5rem 0;
+    resize: none;
+    outline: none;
+    min-height: 200px;
+    transition: border-color 0.3s;
+  }
+  .letter-textarea:focus { border-bottom-color: #b8975a; }
+  .letter-textarea::placeholder { color: #3a3020; font-style: italic; }
+  #timeline { background: #0a0807; border-top: 1px solid #2a2318; padding: 5rem 2rem; min-height: auto; }
+  .timeline-container { max-width: 600px; width: 100%; }
+  .timeline-item { display: grid; grid-template-columns: 90px 1fr; gap: 1.5rem; margin-bottom: 2.5rem; align-items: start; }
+  .timeline-date-input {
+    background: transparent; border: none; border-bottom: 1px solid #2a2318;
+    color: #b8975a; font-family: 'Playfair Display', serif; font-size: 0.85rem;
+    width: 100%; padding: 0.2rem 0; outline: none; transition: border-color 0.3s;
+  }
+  .timeline-date-input:focus { border-bottom-color: #b8975a; }
+  .timeline-date-input::placeholder { color: #3a2e1e; }
+  .timeline-right { border-left: 1px solid #2a2318; padding-left: 1.5rem; position: relative; }
+  .timeline-right::before {
+    content: ''; position: absolute; left: -4px; top: 7px;
+    width: 7px; height: 7px; border-radius: 50%;
+    background: #5a4a2a; border: 1px solid #b8975a;
+  }
+  .timeline-memory-input {
+    background: transparent; border: none; border-bottom: 1px solid #1a1810;
+    color: #9a8e78; font-family: 'Lato', sans-serif; font-size: 0.9rem;
+    width: 100%; padding: 0.2rem 0; outline: none; transition: border-color 0.3s;
+  }
+  .timeline-memory-input:focus { border-bottom-color: #7a6040; color: #c4b490; }
+  .timeline-memory-input::placeholder { color: #2a2218; }
+  .add-memory-btn {
+    background: transparent; border: 1px solid #2a2318; color: #5a4e38;
+    font-family: 'Lato', sans-serif; font-size: 0.65rem; letter-spacing: 0.25em;
+    text-transform: uppercase; padding: 0.6rem 1.5rem; cursor: pointer;
+    transition: border-color 0.3s, color 0.3s; margin-top: 1rem;
+  }
+  .add-memory-btn:hover { border-color: #b8975a; color: #b8975a; }
+  footer { background: #080706; border-top: 1px solid #2a2318; padding: 3rem 2rem; text-align: center; }
+  .footer-quote { font-family: 'Playfair Display', serif; font-style: italic; font-size: 1rem; color: #5a4e38; max-width: 400px; margin: 0 auto; line-height: 1.8; }
+  .footer-names { font-size: 0.65rem; letter-spacing: 0.35em; text-transform: uppercase; color: #3a3020; margin-top: 1.5rem; }
+  .nav-dots { position: fixed; right: 1.5rem; top: 50%; transform: translateY(-50%); display: flex; flex-direction: column; gap: 10px; z-index: 100; }
+  .nav-dot { width: 5px; height: 5px; border-radius: 50%; background: #3a3020; cursor: pointer; transition: background 0.3s, transform 0.3s; }
+  .nav-dot.active { background: #b8975a; transform: scale(1.4); }
+
+  /* LOGOUT */
+  #logoutBtn {
+    position: fixed;
+    top: 1.2rem;
+    right: 1.5rem;
+    z-index: 500;
+    background: transparent;
+    border: 1px solid #2a2318;
+    color: #3a3020;
+    font-family: 'Lato', sans-serif;
+    font-size: 0.6rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    padding: 0.45rem 1rem;
+    cursor: pointer;
+    transition: border-color 0.3s, color 0.3s, opacity 0.3s;
+    display: none;
+  }
+  #logoutBtn:hover { border-color: #7a6040; color: #7a6040; }
+  #logoutBtn.visible { display: block; }
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+  @media (max-width: 600px) {
+    .counter-grid { gap: 1rem; }
+    .counter-sep { font-size: 2rem; }
+    .photo-grid { grid-template-columns: 1fr 1fr; }
   }
 </style>
 </head>
 <body>
 
-<header>
-  <div class="logo-dot"></div>
-  <div class="logo-text">TeknoShop</div>
-</header>
-
-<section class="hero">
-  <div>
-    <div class="hero-tag"><span>●</span> Ücretsiz PDF Rehber</div>
-    <h1>WhatsApp'ta <span>AI Agent</span> kur, satışı otomatize et</h1>
-    <p class="hero-sub">
-      Instagram reklamından gelen müşteriyi 3 saniyede karşılayan, ürün öneren, sipariş alan sistemi adım adım nasıl kurduğumu anlattım.
-    </p>
-    <div class="stats">
-      <div class="stat-item">
-        <strong>300K+</strong>
-        <span>LinkedIn gösterim</span>
-      </div>
-      <div class="stat-item">
-        <strong>1.400+</strong>
-        <span>Yorum</span>
-      </div>
-      <div class="stat-item">
-        <strong>1 dk</strong>
-        <span>Sipariş süresi</span>
-      </div>
-    </div>
-
-    <!-- EMAIL FORM - HERO İÇİNDE -->
-    <div class="hero-email-box">
-      <p class="hero-email-label">📄 PDF'i ücretsiz al — e-postanı bırak, anında gelsin</p>
-      <div id="ck-form-area">
-        <form id="email-form" onsubmit="handleSubmit(event)">
-          <input type="text" id="input-name" placeholder="Adın" required />
-          <input type="email" id="input-email" placeholder="E-posta adresin" required />
-          <button type="submit" id="submit-btn">Gönder →</button>
-        </form>
-      </div>
-      <div id="success-msg" style="display:none;">
-        ✅ Harika! PDF birkaç dakika içinde gelen kutunda olacak.
-      </div>
-      <p class="email-note">Spam yok. İstediğin zaman çıkabilirsin.</p>
-    </div>
-
+<!-- LOCK SCREEN -->
+<div id="lockScreen">
+  <div class="lock-ornament">✦</div>
+  <p class="lock-title">Ebrar & Harun</p>
+  <p class="lock-subtitle">Özel bir alan</p>
+  <div class="lock-input-wrap">
+    <input class="lock-input" type="password" id="pwInput" placeholder="· · · · · · · ·" maxlength="20"
+      onkeydown="if(event.key==='Enter') checkPassword()">
   </div>
+  <div class="lock-error" id="lockError"></div>
+  <button class="lock-btn" onclick="checkPassword()">Gir</button>
+  <p class="lock-hint">Sadece sen biliyorsun ✦</p>
+</div>
 
-  <div class="phone-wrap">
-    <div class="phone">
-      <div class="phone-bar">
-        <div class="phone-avatar">🤖</div>
-        <div>
-          <div class="phone-name">TeknoShop</div>
-          <div class="phone-status">çevrimiçi</div>
-        </div>
+<!-- LOGOUT BUTTON -->
+<button id="logoutBtn" onclick="logout()">✦ Çıkış</button>
+
+<!-- MAIN SITE -->
+<div id="mainSite">
+  <nav class="nav-dots">
+    <div class="nav-dot active" onclick="goTo('#hero')"></div>
+    <div class="nav-dot" onclick="goTo('#counter')"></div>
+    <div class="nav-dot" onclick="goTo('#photos')"></div>
+    <div class="nav-dot" onclick="goTo('#letter')"></div>
+    <div class="nav-dot" onclick="goTo('#timeline')"></div>
+  </nav>
+
+  <section id="hero">
+    <p class="hero-date">12 Mart 2025</p>
+    <h1 class="hero-names">
+      Ebrar
+      <span class="hero-ampersand">&amp;</span>
+      <span>Harun</span>
+    </h1>
+    <p class="hero-sub">Birlikte yazılan hikâye</p>
+  </section>
+
+  <section id="counter">
+    <p class="counter-label">Birlikte geçirilen zaman</p>
+    <div class="counter-grid">
+      <div class="counter-unit">
+        <span class="counter-number" id="c-days">0</span>
+        <p class="counter-unit-label">Gün</p>
       </div>
-      <div class="chat-area">
-        <div class="bubble them">Hoş geldiniz! 😊 Nasıl yardımcı olabilirim?</div>
-        <div class="bubble me">iPhone 16 kılıf fiyatı?</div>
-        <div class="bubble them">iPhone 16 Şeffaf Kılıf → 149 TL ✅<br>Stokta mevcut. Almak ister misiniz?</div>
-        <div class="bubble me">Evet, siyah renk istiyorum</div>
-        <div class="bubble them">🎉 Siparişiniz alındı!<br>📦 1-3 iş gününde kargoda.</div>
+      <div class="counter-sep">·</div>
+      <div class="counter-unit">
+        <span class="counter-number" id="c-hours">0</span>
+        <p class="counter-unit-label">Saat</p>
+      </div>
+      <div class="counter-sep">·</div>
+      <div class="counter-unit">
+        <span class="counter-number" id="c-minutes">0</span>
+        <p class="counter-unit-label">Dakika</p>
       </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<section class="workflow-section">
-  <div class="section-label">Vizyon</div>
-  <div class="section-title">Böyle çalışacak</div>
-  <div class="wf-grid">
+  <section id="photos">
+    <h2 class="section-title">Anılarımız</h2>
+    <div class="section-divider"></div>
+    <div class="photo-grid" id="photoGrid"></div>
+  </section>
 
-    <div class="wf-card">
-      <span class="wf-num">Adım 01</span>
-      <span class="wf-icon">📱</span>
-      <h3>Müşteri mesaj yazar</h3>
-      <p>Instagram reklamına tıklar, WhatsApp açılır. Ürün sorar, fiyat öğrenir — tamamen doğal bir sohbet.</p>
-      <span class="wf-tag">WhatsApp Business</span>
-      <span class="wf-arrow">→</span>
+  <section id="letter">
+    <div class="letter-container">
+      <h2 class="section-title">Sana yazmak istediklerim</h2>
+      <div class="section-divider"></div>
+      <textarea class="letter-textarea" rows="10" placeholder="Ebrar'ıma...&#10;&#10;Seninle geçirdiğim her an..."></textarea>
     </div>
+  </section>
 
-    <div class="wf-card highlight">
-      <span class="wf-num">Adım 02</span>
-      <span class="wf-icon">🧠</span>
-      <h3>AI anlar & cevaplar</h3>
-      <p>Mesaj Claude'a iletilir. Ürün kataloğuna bakar, müşteriyi tanır, kısa ve samimi bir cevap üretir.</p>
-      <span class="wf-tag">Claude AI</span>
-      <span class="wf-arrow">→</span>
+  <section id="timeline">
+    <h2 class="section-title">Birlikte yazdığımız tarih</h2>
+    <div class="section-divider"></div>
+    <div class="timeline-container">
+      <div id="timelineList"></div>
+      <button class="add-memory-btn" onclick="addMemory()">+ Anı ekle</button>
     </div>
+  </section>
 
-    <div class="wf-card">
-      <span class="wf-num">Adım 03</span>
-      <span class="wf-icon">🛒</span>
-      <h3>Sipariş otomatik alınır</h3>
-      <p>Renk, beden, adres — hepsini sohbet içinde toplar. Tek bir form doldurmadan sipariş tamamlanır.</p>
-      <span class="wf-tag">Otomatik</span>
-      <span class="wf-arrow">→</span>
-    </div>
-
-    <div class="wf-card">
-      <span class="wf-num">Adım 04</span>
-      <span class="wf-icon">📊</span>
-      <h3>Mağaza paneline düşer</h3>
-      <p>Sipariş, müşteri bilgisi ve konuşma geçmişi panele kaydedilir. İnsan müdahalesine gerek kalmaz.</p>
-      <span class="wf-tag">Dashboard</span>
-    </div>
-
-  </div>
-</section>
-
-<section class="inside">
-  <div class="section-label">PDF içeriği</div>
-  <div class="section-title">Rehberde ne var?</div>
-  <div class="inside-grid">
-    <div class="inside-card">
-      <span class="icon">🤔</span>
-      <h3>Neden WhatsApp AI Agent?</h3>
-      <p>Günde 40-50 mesaja yetişemeyen işletmelerin sorunu ve AI Agent'ın chatbot'tan farkı — bağlamı anlayan, önceki mesajları hatırlayan sistem.</p>
-    </div>
-    <div class="inside-card">
-      <span class="icon">⚙️</span>
-      <h3>Sistem Nasıl Çalışıyor?</h3>
-      <p>Müşteriden cevaba kadar 5 adımlık teknik akış. Meta WhatsApp API, Claude AI, FastAPI, Railway ve PostgreSQL ile tam mimari.</p>
-    </div>
-    <div class="inside-card">
-      <span class="icon">🔧</span>
-      <h3>Meta Developer & WhatsApp API Kurulumu</h3>
-      <p>Facebook geliştirici hesabı açma, uygulama oluşturma, test numarası alma ve System User Token ile production kurulumu.</p>
-    </div>
-    <div class="inside-card">
-      <span class="icon">🔗</span>
-      <h3>Webhook & Claude AI Entegrasyonu</h3>
-      <p>Webhook nasıl kurulur, Verify Token nedir. Anthropic API key alma, model seçimi ve system prompt tasarımı.</p>
-    </div>
-    <div class="inside-card">
-      <span class="icon">🚀</span>
-      <h3>Railway Deploy & Test</h3>
-      <p>GitHub repodan otomatik deploy, environment variables ayarı, public URL alma ve sistemi 5 farklı senaryoyla test etme.</p>
-    </div>
-
-  </div>
-</section>
-
-<footer>
-  <p>© 2026 Harun Gökçe —
-    <a href="https://linkedin.com/in/harun-gökçe-08843a298" target="_blank">LinkedIn</a>
-  </p>
-</footer>
+  <footer>
+    <p class="footer-quote">"Uzaklık sadece bir sayı, sen ise kalbimin her yerinde."</p>
+    <p class="footer-names">Ebrar &amp; Harun · 2025</p>
+  </footer>
+</div>
 
 <script>
-  const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzUe8udePpFV9qckbPfwoGBxslgmvpCK1Pe2XpnDTMWRGeCcCllVOgWjbuu-XIWsjMf/exec';
+const CORRECT = '12.03.2025';
 
-  async function handleSubmit(e) {
-    e.preventDefault();
+function logout() {
+  document.getElementById('mainSite').classList.remove('visible');
+  document.getElementById('logoutBtn').classList.remove('visible');
+  const lock = document.getElementById('lockScreen');
+  lock.style.display = 'flex';
+  lock.classList.remove('hide');
+  document.getElementById('pwInput').value = '';
+  document.getElementById('lockError').textContent = '';
+}
 
-    const btn = document.getElementById('submit-btn');
-    btn.textContent = 'Gönderiliyor...';
-    btn.disabled = true;
-
-    const name = document.getElementById('input-name').value;
-    const email = document.getElementById('input-email').value;
-
-    try {
-      const url = `${APPS_SCRIPT_URL}?name=${encodeURIComponent(name)}&email=${encodeURIComponent(email)}`;
-      
-      await fetch(url, { method: 'GET', mode: 'no-cors' });
-
-      document.getElementById('email-form').style.display = 'none';
-      document.getElementById('success-msg').style.display = 'block';
-
-    } catch (err) {
-      btn.textContent = 'Gönder →';
-      btn.disabled = false;
-      alert('Bir hata oluştu, tekrar dene.');
-    }
+function checkPassword() {
+  const val = document.getElementById('pwInput').value.trim();
+  const errEl = document.getElementById('lockError');
+  const inp = document.getElementById('pwInput');
+  if (val === CORRECT) {
+    document.getElementById('lockScreen').classList.add('hide');
+    setTimeout(() => {
+      document.getElementById('lockScreen').style.display = 'none';
+      document.getElementById('mainSite').classList.add('visible');
+      document.getElementById('logoutBtn').classList.add('visible');
+      initSite();
+    }, 800);
+  } else {
+    errEl.textContent = 'Yanlış şifre...';
+    inp.classList.add('error');
+    setTimeout(() => { inp.classList.remove('error'); errEl.textContent = ''; }, 1500);
   }
-</script>
+}
 
+function initSite() {
+  updateCounter();
+  setInterval(updateCounter, 30000);
+  buildPhotoGrid();
+  buildTimeline();
+  setupNavObserver();
+}
+
+function updateCounter() {
+  const start = new Date('2025-03-12T00:00:00');
+  const now = new Date();
+  const diff = now - start;
+  if (diff < 0) return;
+  const totalMinutes = Math.floor(diff / 60000);
+  const totalHours   = Math.floor(diff / 3600000);
+  const totalDays    = Math.floor(diff / 86400000);
+  document.getElementById('c-days').textContent    = totalDays;
+  document.getElementById('c-hours').textContent   = String(totalHours % 24).padStart(2,'0');
+  document.getElementById('c-minutes').textContent = String(totalMinutes % 60).padStart(2,'0');
+}
+
+function buildPhotoGrid() {
+  const grid = document.getElementById('photoGrid');
+  const captions = ['İlk anımız...','En güzel günümüz...','','','',''];
+  for (let i = 0; i < 6; i++) {
+    const wrap = document.createElement('div');
+    wrap.style.cssText = 'display:flex;flex-direction:column;gap:6px;';
+    const slot = document.createElement('div');
+    slot.className = 'photo-slot';
+    slot.innerHTML = `
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#3a3020" stroke-width="1.5">
+        <rect x="3" y="3" width="18" height="18" rx="2"/>
+        <circle cx="8.5" cy="8.5" r="1.5"/>
+        <polyline points="21 15 16 10 5 21"/>
+      </svg>
+      <span class="placeholder-text">Fotoğraf ekle</span>
+      <input type="file" accept="image/*">
+    `;
+    slot.querySelector('input').addEventListener('change', function() {
+      const file = this.files[0];
+      if (!file) return;
+      const r = new FileReader();
+      r.onload = e => {
+        let img = slot.querySelector('img');
+        if (!img) { img = document.createElement('img'); slot.appendChild(img); }
+        img.src = e.target.result;
+        const svg = slot.querySelector('svg');
+        const txt = slot.querySelector('.placeholder-text');
+        if (svg) svg.style.display = 'none';
+        if (txt) txt.style.display = 'none';
+      };
+      r.readAsDataURL(file);
+    });
+    const cap = document.createElement('input');
+    cap.className = 'photo-caption-field';
+    cap.type = 'text';
+    cap.placeholder = captions[i] || 'Açıklama ekle...';
+    wrap.appendChild(slot);
+    wrap.appendChild(cap);
+    grid.appendChild(wrap);
+  }
+}
+
+const memories = [
+  { date: '12 Mart 2025', text: 'Başladığımız gün' },
+  { date: '', text: '' },
+];
+
+function buildTimeline() {
+  const list = document.getElementById('timelineList');
+  list.innerHTML = '';
+  memories.forEach(m => {
+    const item = document.createElement('div');
+    item.className = 'timeline-item';
+    item.innerHTML = `
+      <input class="timeline-date-input" type="text" value="${m.date}" placeholder="Tarih...">
+      <div class="timeline-right">
+        <input class="timeline-memory-input" type="text" value="${m.text}" placeholder="O an neydi?...">
+      </div>
+    `;
+    list.appendChild(item);
+  });
+}
+
+function addMemory() {
+  memories.push({ date: '', text: '' });
+  buildTimeline();
+}
+
+function goTo(id) {
+  document.querySelector(id).scrollIntoView({ behavior: 'smooth' });
+}
+
+function setupNavObserver() {
+  const sections = ['#hero','#counter','#photos','#letter','#timeline'];
+  const dots = document.querySelectorAll('.nav-dot');
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const idx = sections.findIndex(s => s === '#' + entry.target.id);
+        if (idx >= 0) {
+          dots.forEach(d => d.classList.remove('active'));
+          dots[idx].classList.add('active');
+        }
+      }
+    });
+  }, { threshold: 0.4 });
+  sections.forEach(s => { const el = document.querySelector(s); if (el) observer.observe(el); });
+}
+</script>
 </body>
 </html>
