@@ -518,6 +518,64 @@
     font-size: 16px;
   }
 
+  /* HERO EMAIL BOX */
+  .hero-email-box {
+    margin-top: 36px;
+    background: linear-gradient(135deg, #0f1f16 0%, #0a1a0e 100%);
+    border: 1px solid rgba(37,211,102,0.2);
+    border-radius: 18px;
+    padding: 28px 28px 20px;
+  }
+
+  .hero-email-label {
+    font-size: 14px;
+    color: var(--off-white);
+    margin-bottom: 16px !important;
+    font-weight: 500;
+  }
+
+  .hero-email-box #email-form {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+
+  .hero-email-box input {
+    flex: 1;
+    min-width: 160px;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 10px;
+    padding: 13px 16px;
+    color: var(--off-white);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+
+  .hero-email-box input:focus { border-color: var(--green); }
+  .hero-email-box input::placeholder { color: var(--warm-gray); }
+
+  .hero-email-box button {
+    background: var(--green);
+    color: #000;
+    border: none;
+    border-radius: 10px;
+    padding: 13px 22px;
+    font-family: 'Syne', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.15s;
+    white-space: nowrap;
+  }
+
+  .hero-email-box button:hover {
+    background: #1fba56;
+    transform: translateY(-1px);
+  }
+
   footer {
     border-top: 1px solid rgba(255,255,255,0.06);
     padding: 32px 40px;
@@ -556,11 +614,11 @@
     </p>
     <div class="stats">
       <div class="stat-item">
-        <strong>275K+</strong>
+        <strong>300K+</strong>
         <span>LinkedIn gösterim</span>
       </div>
       <div class="stat-item">
-        <strong>1.233</strong>
+        <strong>1.400+</strong>
         <span>Yorum</span>
       </div>
       <div class="stat-item">
@@ -568,6 +626,23 @@
         <span>Sipariş süresi</span>
       </div>
     </div>
+
+    <!-- EMAIL FORM - HERO İÇİNDE -->
+    <div class="hero-email-box">
+      <p class="hero-email-label">📄 PDF'i ücretsiz al — e-postanı bırak, anında gelsin</p>
+      <div id="ck-form-area">
+        <form id="email-form" onsubmit="handleSubmit(event)">
+          <input type="text" id="input-name" placeholder="Adın" required />
+          <input type="email" id="input-email" placeholder="E-posta adresin" required />
+          <button type="submit" id="submit-btn">Gönder →</button>
+        </form>
+      </div>
+      <div id="success-msg" style="display:none;">
+        ✅ Harika! PDF birkaç dakika içinde gelen kutunda olacak.
+      </div>
+      <p class="email-note">Spam yok. İstediğin zaman çıkabilirsin.</p>
+    </div>
+
   </div>
 
   <div class="phone-wrap">
@@ -638,67 +713,33 @@
   <div class="section-title">Rehberde ne var?</div>
   <div class="inside-grid">
     <div class="inside-card">
-      <span class="icon">🏗️</span>
-      <h3>Mimari & Stack</h3>
-      <p>FastAPI, Claude API, PostgreSQL, Railway deploy — tam teknoloji seçimleri neden bu şekilde yapıldı.</p>
+      <span class="icon">🤔</span>
+      <h3>Neden WhatsApp AI Agent?</h3>
+      <p>Günde 40-50 mesaja yetişemeyen işletmelerin sorunu ve AI Agent'ın chatbot'tan farkı — bağlamı anlayan, önceki mesajları hatırlayan sistem.</p>
     </div>
     <div class="inside-card">
-      <span class="icon">💬</span>
-      <h3>Prompt Mühendisliği</h3>
-      <p>AI'ın insan gibi konuşmasını sağlayan system prompt yapısı ve gizli komut sistemi.</p>
+      <span class="icon">⚙️</span>
+      <h3>Sistem Nasıl Çalışıyor?</h3>
+      <p>Müşteriden cevaba kadar 5 adımlık teknik akış. Meta WhatsApp API, Claude AI, FastAPI, Railway ve PostgreSQL ile tam mimari.</p>
     </div>
     <div class="inside-card">
-      <span class="icon">⚡</span>
-      <h3>Typing Indicator</h3>
-      <p>Mesaj uzunluğuna göre 1.5–4.5 sn gecikme hesabı — doğallığı yaratan kritik detay.</p>
+      <span class="icon">🔧</span>
+      <h3>Meta Developer & WhatsApp API Kurulumu</h3>
+      <p>Facebook geliştirici hesabı açma, uygulama oluşturma, test numarası alma ve System User Token ile production kurulumu.</p>
     </div>
     <div class="inside-card">
-      <span class="icon">🏪</span>
-      <h3>Multi-Tenant Yapı</h3>
-      <p>Tek altyapıdan birden fazla mağaza — SaaS'a dönüştürmeye hazır mimari.</p>
+      <span class="icon">🔗</span>
+      <h3>Webhook & Claude AI Entegrasyonu</h3>
+      <p>Webhook nasıl kurulur, Verify Token nedir. Anthropic API key alma, model seçimi ve system prompt tasarımı.</p>
     </div>
     <div class="inside-card">
-      <span class="icon">🐾</span>
-      <h3>VetAI Uyarlaması</h3>
-      <p>Aynı sistemi veteriner kliniklerine nasıl uyarladım — RAG + aciliyet tespiti.</p>
+      <span class="icon">🚀</span>
+      <h3>Railway Deploy & Test</h3>
+      <p>GitHub repodan otomatik deploy, environment variables ayarı, public URL alma ve sistemi 5 farklı senaryoyla test etme.</p>
     </div>
-    <div class="inside-card">
-      <span class="icon">💰</span>
-      <h3>Maliyet Analizi</h3>
-      <p>API maliyetleri, hosting ve ölçeklendirme senaryoları ile gerçek rakamlar.</p>
-    </div>
+
   </div>
 </section>
-
-<!-- EMAIL CAPTURE -->
-<div class="email-section">
-  <div class="email-box">
-    <h2>PDF'i ücretsiz al 📄</h2>
-    <p>E-posta adresini bırak, rehber anında gelsin.<br>Spam yok, sadece değerli içerik.</p>
-
-    <!--
-      CONVERTKIT ENTEGRASYONU:
-      1. Kit.com'a gir → Forms → Create Form
-      2. "Inline" form seç
-      3. Form oluşturduktan sonra "Share" > "HTML" kodunu kopyala
-      4. Aşağıdaki #ck-form-area div'inin içine yapıştır
-      5. #email-form'u ve handleSubmit fonksiyonunu sil
-    -->
-    <div id="ck-form-area">
-      <form id="email-form" onsubmit="handleSubmit(event)">
-        <input type="text" id="input-name" placeholder="Adın" required />
-        <input type="email" id="input-email" placeholder="E-posta adresin" required />
-        <button type="submit" id="submit-btn">Gönder →</button>
-      </form>
-    </div>
-
-    <div id="success-msg" style="display:none;">
-      ✅ Harika! PDF birkaç dakika içinde gelen kutunda olacak.
-    </div>
-
-    <p class="email-note">Bilgilerini kimseyle paylaşmıyorum. İstediğin zaman çıkabilirsin.</p>
-  </div>
-</div>
 
 <footer>
   <p>© 2026 Harun Gökçe —
